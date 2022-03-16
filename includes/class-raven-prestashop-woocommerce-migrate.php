@@ -54,18 +54,18 @@ class Raven_PrestaShop_WooCommerce_Migrate {
 	protected static $_instance = null;
 
     /**
-	 * Main Instance.
-	 *
-	 * Ensures only one instance is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-	}
+     * Main Instance.
+     *
+     * Ensures only one instance is loaded or can be loaded.
+     *
+     * @since 1.0.0
+     */
+    public static function instance() {
+	    if ( is_null( self::$_instance ) ) {
+		    self::$_instance = new self();
+	    }
+	    return self::$_instance;
+    }
 
     /**
      *  Constructor
