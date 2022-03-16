@@ -1,0 +1,11 @@
+
+/**** Prestashop to WooCommerce migration plugin ****/
+
+* Add new page to tools section of admin panel
+* Options to get data from database/backup file
+* Section to update orders, products, categories, customers
+
+* ADD Connect to temporary database
+* ADD button to test connection
+* ADD find data for selected section and return it to user
+* Add update WooCommerce fields 
