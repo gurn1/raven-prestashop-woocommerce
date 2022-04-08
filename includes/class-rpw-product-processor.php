@@ -358,7 +358,8 @@ class RPW_product_processor extends Raven_PrestaShop_WooCommerce_Migrate {
         $meta = array(
             '_rpw_old_product_id'       => $product['id_product'],
             '_rpw_old_slug'             => $product['slug'],
-            '_product_image_gallery'    => $gallery
+            '_product_image_gallery'    => $gallery,
+            '_rpw_old_link_rewrite'     => $product['link_rewrite']
         );
 
         foreach($meta as $key => $value) {

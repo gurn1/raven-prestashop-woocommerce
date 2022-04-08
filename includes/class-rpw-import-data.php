@@ -126,7 +126,7 @@ class RPW_prestashop_import extends Raven_PrestaShop_WooCommerce_Migrate {
     public function get_product($product_id) {
         $prefix = self::$prefix;
         $mysqli = $this->create_connection();
-        $result = array();
+        $product = array();
 
         $sql = "SELECT p.id_product, p.id_category_default, p.quantity, p.price, p.reference, p.weight, p.out_of_stock, p.active, p.date_add, p.date_upd, pl.id_product, pl.name, pl.description, pl.description_short, pl.link_rewrite 
             FROM ${prefix}product p 
@@ -136,9 +136,15 @@ class RPW_prestashop_import extends Raven_PrestaShop_WooCommerce_Migrate {
 
         if($mysqli) {
             $result = $mysqli->query($sql);
+
+            if ($result->num_rows > 0) {
+                foreach($result as $row) {
+                    $product[] = $row;
+                }
+            }
             $mysqli->close();
         }
-        return $result;
+        return $product;
     }
 
     /**

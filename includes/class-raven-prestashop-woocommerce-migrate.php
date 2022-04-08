@@ -74,6 +74,8 @@ class Raven_PrestaShop_WooCommerce_Migrate {
         $this->define_constants();
         $this->hooks();
         $this->includes();
+
+        add_action('admin_init', array($this, 'update_link_rewrite'));
     }
 
     /**
@@ -330,6 +332,43 @@ class Raven_PrestaShop_WooCommerce_Migrate {
             }
         }
     }
+
+    /**
+     * Add link rewrite to product data
+     * 
+     * @since 1.0.1
+     */
+    public function update_link_rewrite() {
+        if( current_user_can('manage_options') ) {
+            $connection     = new RPW_prestashop_import();
+            $query          = $connection->get_products();
+
+            echo '<pre>';
+           // var_dump($query);
+            echo '</pre>';
+
+            $query = get_posts( array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'product'
+            ) );
+        
+            $i = 0;
+            if($query) {
+                foreach( $query as $post ) {
+                    if($i >= 1) {
+                        break;
+                    }
+                    $old_product_id = get_post_meta($post->ID, '_rpw_old_product_id', true);
+                    $old_product = $connection->get_product($old_product_id);
+                    $link_rewrite = isset($old_product[0]['link_rewrite']) ? $old_product[0]['link_rewrite'] : '';
+                    
+                    $new_link = get_post_meta($post->ID, '_rpw_old_link_rewrite', true);
+                    var_dump($new_link);
+                    //update_post_meta($post->ID, '_rpw_old_link_rewrite', sanitize_text_field($link_rewrite));
+                }
+            }
+        }
+    } 
 
     /**
      * 
